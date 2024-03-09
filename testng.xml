@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="F:/Document/TESTER/AUTO_SELENIUM_CLASS29/Java-hybrid-framework/hybrid-nopcomerce-framework/resources"><classes/></test></suite>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="NopCommerce Automation Testing">
+    <test verbose="2" preserve-order="true" name="Run on Chrome">
+        <classes>
+            <class name="com.nopcommerce.user.User_01_Register_Login"></class>
+        </classes>
+        
+    </test>
+</suite>
