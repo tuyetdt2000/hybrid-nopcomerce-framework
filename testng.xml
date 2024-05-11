@@ -3,7 +3,7 @@
 <suite name="NopCommerce Automation Testing">
     <test verbose="2" preserve-order="true" name="Run on Chrome">
         <classes>
-            <class name="com.nopcommerce.user.User_01_Register_Login"></class>
+            <class name="com.nopcommerce.exampleDemo.User_01_Register_Login"></class>
         </classes>
         
     </test>

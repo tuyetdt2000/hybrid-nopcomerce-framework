@@ -1,4 +1,4 @@
-package com.nopcommerce.user;
+package com.nopcommerce.exampleDemo;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
