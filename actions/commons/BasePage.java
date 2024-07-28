@@ -62,6 +62,25 @@ public class BasePage {
         return driver.switchTo().alert().getText();
     }
 
+    // Truyen tham so vao loai gi se tra ve Kieu By tuong tu
+    // String prefix: css/id/name/class => By.css/id/name/class
+    // Convention css/Css/CSS - id/ID/Id
+    public By getByLocator(String prefixLocator) {
+        By by=null;
+        if(prefixLocator.startsWith("css")||prefixLocator.startsWith("Css")||prefixLocator.startsWith("CSS")) {
+            by=By.cssSelector(prefixLocator.substring(4));
+        }else if (prefixLocator.startsWith("id")||prefixLocator.startsWith("Id")||prefixLocator.startsWith("ID")){
+            by=By.id(prefixLocator.substring(3));
+        }else if (prefixLocator.startsWith("xpath")||prefixLocator.startsWith("Xpath")
+                ||prefixLocator.startsWith("XPATH")||prefixLocator.startsWith("XPath")){
+            by=By.xpath(prefixLocator.substring(6));
+        }else {
+            throw new RuntimeException("Locator not support!");
+        }
+        return by;
+
+    }
+
     protected By getByXpath(String locator) {
         return By.xpath(locator);
 
