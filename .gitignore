@@ -1,4 +1,12 @@
-libraries/**
-out/
-hybrid-nopcomerce-framework.iml
+
+/logs/
+# Ignore IntelliJ project files
 .idea/
+*.iml
+# Ignore build output
+target/
+build/
+out/
+# Ignore third-party libraries (should use Maven instead)
+libLog4j1/*.jar
+/libraries/
