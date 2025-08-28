@@ -15,6 +15,7 @@ public class RegisterPageTest {
     // Pre - Conditions
     @BeforeClass
     public void beforeClass() {
+
         driver = new ChromeDriver();
         registerPageObject=new RegisterPageObject(driver);
         driver.get("http://demo.nopcommerce.com/");

@@ -1,6 +1,10 @@
 package commons;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.spi.LoggerFactory;
+import org.checkerframework.common.reflection.qual.GetClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -14,8 +18,12 @@ import java.util.Random;
 public class BaseTest {
 
 
+    protected WebDriver driver;
+    protected  final Log log;
 
-     WebDriver driver;
+    public BaseTest() {
+       log= LogFactory.getLog(getClass());
+    }
 
     protected String randomPhoneNumber(){
         Random rand = new Random();
