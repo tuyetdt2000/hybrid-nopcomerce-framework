@@ -3,7 +3,6 @@ package pageObject;
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
 import pageUIs.LoginPageUI;
-import pageUIs.RegisterPageUI;
 
 public class LoginPageObject extends BasePage {
     WebDriver driver;
@@ -24,6 +23,14 @@ public class LoginPageObject extends BasePage {
     public void enterToPasswordTextBox(String value) {
         waitForElementVisibility(driver, LoginPageUI.TXT_PASSWORD);
         sendKeyToElement(driver, LoginPageUI.TXT_PASSWORD,value);
+    }
+
+    public HomePageObject loginToSystem(String email, String password){
+
+        enterToEmailTextBox(email);
+        enterToPasswordTextBox(password);
+        clickLoginBtn();
+        return PageGenerator.getHomePage(driver);
     }
 
     public void clickLoginButton() {

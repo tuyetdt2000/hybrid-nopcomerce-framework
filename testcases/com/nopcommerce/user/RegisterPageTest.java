@@ -29,16 +29,19 @@ public class RegisterPageTest {
         registerPageObject.clickToMaleRadio();
         registerPageObject.enterToFirstNameTextBox("Tes 01");
         registerPageObject.enterToLastNameTextBox("Doan");
-        registerPageObject.selectDayDropDown("19");
-        registerPageObject.selectMonthDropDown("April");
-        registerPageObject.selectYearDropDown("2000");
+//        registerPageObject.selectDayDropDown("19");
+//        registerPageObject.selectMonthDropDown("April");
+//        registerPageObject.selectYearDropDown("2000");
         registerPageObject.enterToEmailTextBox("test02@gmail.com");
         registerPageObject.enterToCompanyTextBox("Company 01");
-        registerPageObject.enterToPasswordTextBox("test01@gmail.com");
-        registerPageObject.enterToConfirmPasswordTextBox("test01@gmail.com");
+        registerPageObject.enterToPasswordTextBox("test05@gmail.com");
+        registerPageObject.enterToConfirmPasswordTextBox("test05@gmail.com");
         registerPageObject.clickRegisterButton();
+
+
         // Assertions
         Assert.assertEquals(registerPageObject.getRegisterSuccessMessage(),"Your registration completed");
+
 
 
 

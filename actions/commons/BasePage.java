@@ -2,16 +2,14 @@ package commons;
 
 import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.commons.logging.Log;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
@@ -74,23 +72,24 @@ public class BasePage {
     // Truyen tham so vao loai gi se tra ve Kieu By tuong tu
     // String prefix: css/id/name/class => By.css/id/name/class
     // Convention css/Css/CSS - id/ID/Id
-    public By getByLocator(String prefixLocator) {
-        By by=null;
-        if(prefixLocator.startsWith("css")||prefixLocator.startsWith("Css")||prefixLocator.startsWith("CSS")) {
-            by=By.cssSelector(prefixLocator.substring(4));
-        }else if (prefixLocator.startsWith("id")||prefixLocator.startsWith("Id")||prefixLocator.startsWith("ID")){
-            by=By.id(prefixLocator.substring(3));
-        }else if (prefixLocator.startsWith("xpath")||prefixLocator.startsWith("Xpath")
-                ||prefixLocator.startsWith("XPATH")||prefixLocator.startsWith("XPath")){
-            by=By.xpath(prefixLocator.substring(6));
-        }else {
+    private By getByLocator(String prefixLocator) {
+        By by = null;
+        if (prefixLocator.startsWith("css") || prefixLocator.startsWith("Css") || prefixLocator.startsWith("CSS")) {
+            by = By.cssSelector(prefixLocator.substring(4));
+        } else if (prefixLocator.startsWith("id") || prefixLocator.startsWith("Id") || prefixLocator.startsWith("ID")) {
+            by = By.id(prefixLocator.substring(3));
+        } else if (prefixLocator.startsWith("xpath") || prefixLocator.startsWith("Xpath")
+                || prefixLocator.startsWith("XPATH") || prefixLocator.startsWith("XPath")) {
+            by = By.xpath(prefixLocator.substring(6));
+        } else {
             throw new RuntimeException("Locator not support!");
         }
         return by;
 
     }
 
-    protected By getByXpath(String locator) {
+
+    private By getByXpath(String locator) {
         return By.xpath(locator);
 
     }
@@ -137,16 +136,18 @@ public class BasePage {
     protected Alert waitAlertPresence(WebDriver driver) {
         return new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.alertIsPresent());
     }
+
     protected WebElement getElement(WebDriver driver, String locator) {
-        return driver.findElement(By.xpath(locator));
+        return driver.findElement(getByLocator(locator));
     }
 
     protected  List<WebElement> getListElement(WebDriver driver, String locator) {
-       return driver.findElements(By.xpath(locator));
+       return driver.findElements(getByLocator(locator));
     }
     protected void clickToElement(WebDriver driver, String locator) {
         getElement(driver,locator).click();
     }
+
 
     protected void selectItemInDropDown(WebDriver driver, String locator, String textItem) {
         new Select(getElement(driver,locator))
@@ -181,7 +182,7 @@ public class BasePage {
     }
     protected void sleepInSeconds(long timeInSeconds){
         try {
-            Thread.sleep(timeInSeconds * 1000);
+            Thread.sleep(Long.parseLong(GlobalConstants.SHORT_TIMEOUT));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -298,11 +299,22 @@ public class BasePage {
     }
     protected void waitForElementVisibility(WebDriver driver, String locator){
         new WebDriverWait(driver, Duration.ofSeconds(30))
-               .until(ExpectedConditions.visibilityOfElementLocated(getByXpath(locator)));
+               .until(ExpectedConditions.visibilityOfElementLocated(getByLocator(locator)));
     }
     protected void waitForElementClickable(WebDriver driver, String locator){
         new WebDriverWait(driver, Duration.ofSeconds(30))
-                .until(ExpectedConditions.elementToBeClickable(getByXpath(locator)));
+                .until(ExpectedConditions.elementToBeClickable(getByLocator(locator)));
+    }
+
+
+    protected boolean isElementDisplayed(WebDriver driver, String locator) {
+       return getElement(driver,locator).isDisplayed();
+    }
+    protected String pathImg(String folder, String imgName){
+        String projectPath = System.getProperty("user.dir");
+        System.out.println(projectPath);
+        return projectPath + File.separator + folder + File.separator + imgName;
+
     }
 
 
