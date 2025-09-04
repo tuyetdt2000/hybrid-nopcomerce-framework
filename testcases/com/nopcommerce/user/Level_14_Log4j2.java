@@ -1,15 +1,18 @@
 package com.nopcommerce.user;
 
 import commons.BaseTest;
+import org.apache.logging.log4j.ThreadContext;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObject.RegisterPageObject;
 
-public class Level_14_Log4j  extends BaseTest {
+import java.lang.reflect.Method;
+
+public class Level_14_Log4j2 extends BaseTest {
     // Declared variables
     WebDriver driver;
     RegisterPageObject registerPageObject;
@@ -22,12 +25,21 @@ public class Level_14_Log4j  extends BaseTest {
     // Pre - Conditions
     @BeforeClass
     public void beforeClass() {
+
         driver = getBrowserDriver("chrome", "http://demo.nopcommerce.com/");
+
+    }
+    @BeforeMethod
+    public void beforeMethod(Method method) {
+        // Gán testName trước khi log nào chạy
+        String safeName = method.getName().replaceAll("[^a-zA-Z0-9._-]", "_");
+        ThreadContext.put("testName", safeName);
+        System.out.println("Running test: " + method.getName());
     }
     @Test
     // Testing
-    public void testRegister_Log4j() {
-        log.info("[Register] Step 01: Register test case");
+    public void testRegister() {
+        log.info("<br>[Register] Step 01: Register test case<br>");
         registerPageObject=new RegisterPageObject(driver);
         log.info("[Register] Step 02: Click on register button");
         registerPageObject.clickRegisterBtn();
@@ -50,7 +62,7 @@ public class Level_14_Log4j  extends BaseTest {
 
 
         // Assertions
-        Assert.assertEquals(registerPageObject.getRegisterSuccessMessage(),"Your registration completed");
+        Assert.assertEquals(registerPageObject.getRegisterSuccessMessage(),"Your registration completed1");
 
 
 
@@ -70,5 +82,6 @@ public class Level_14_Log4j  extends BaseTest {
     @AfterClass
     public void afterClass() {
         driver.quit();
+        ThreadContext.clearAll();
     }
 }

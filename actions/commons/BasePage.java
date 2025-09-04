@@ -1,14 +1,12 @@
 package commons;
 
-import org.apache.commons.logging.LogFactory;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.apache.commons.logging.Log;
-
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
@@ -17,11 +15,6 @@ import java.util.Set;
 public class BasePage {
 
 
-    public final Log log;
-
-    public BasePage() {
-        log = LogFactory.getLog(getClass());
-    }
 
     protected void OpenPageUrl(WebDriver driver, String url) {
         driver.get(url);

@@ -1,10 +1,7 @@
 package commons;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.spi.LoggerFactory;
-import org.checkerframework.common.reflection.qual.GetClass;
+import org.apache.logging.log4j.ThreadContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -12,17 +9,36 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.Random;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
 
     protected WebDriver driver;
-    protected  final Log log;
+    protected Logger log;
 
-    public BaseTest() {
-       log= LogFactory.getLog(getClass());
+    @BeforeMethod
+    public void setUp(Method method) {
+        // Gán tên test case vào ThreadContext để log4j2 dùng trong fileName
+        String safeName = method.getName().replaceAll("[^a-zA-Z0-9._-]", "_");
+        ThreadContext.put("testName", safeName);
+
+        // Khởi tạo logger
+        log = LogManager.getLogger(method.getDeclaringClass());
+
+        log.info("====== START TEST: " + safeName + " ======");
+    }
+
+    @AfterMethod
+    public void tearDown(Method method) {
+        log.info("====== END TEST: " + method.getName() + " ======");
+        ThreadContext.clearAll(); // clear để test khác không bị dính
     }
 
     protected String randomPhoneNumber(){
@@ -46,6 +62,10 @@ public class BaseTest {
         driver.get(url);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
+        return driver;
+    }
+
+    public WebDriver getDriver() {
         return driver;
     }
 
