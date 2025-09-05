@@ -10,3 +10,4 @@ out/
 # Ignore third-party libraries (should use Maven instead)
 libLog4j1/*.jar
 /libraries/
+/test-output/
