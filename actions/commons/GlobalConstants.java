@@ -50,5 +50,11 @@ public class GlobalConstants {
 
     public static final  String JAVA_VERSION = System.getProperty("java.version");
 
+    // JIRA info
+    public static final String JIRA_SITE_URL="https://auto1904.atlassian.net/";
+    public static final String JIRA_USERNAME="tuyetyuki20@gmail.com";
+
+    public static final String JIRA_PROJECT_KEY="SCRUM";
+
 
 }
