@@ -53,7 +53,7 @@ public class GlobalConstants {
     // JIRA info
     public static final String JIRA_SITE_URL="https://auto1904.atlassian.net/";
     public static final String JIRA_USERNAME="tuyetyuki20@gmail.com";
-
+    public static final String JIRA_API_KEY=System.getProperty("JIRA_API_KEY");
     public static final String JIRA_PROJECT_KEY="SCRUM";
 
 

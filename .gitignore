@@ -11,3 +11,4 @@ out/
 libLog4j1/*.jar
 /libraries/
 /test-output/
+/resources/environment.properties

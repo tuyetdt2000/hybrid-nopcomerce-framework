@@ -36,4 +36,6 @@ public class PageGenerator {
     public static RewardPointPageObject getRewardPointPage(WebDriver driver) {
         return new RewardPointPageObject(driver);
     }
+
+
 }

@@ -303,6 +303,53 @@ public class BasePage {
     protected boolean isElementDisplayed(WebDriver driver, String locator) {
        return getElement(driver,locator).isDisplayed();
     }
+
+
+    protected boolean waitForElementVisible(WebDriver driver, String locator, long timeoutInSeconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(locator)));
+            return true; // element hiển thị trong timeout
+        } catch (TimeoutException e) {
+            return false; // element không hiển thị
+        }
+    }
+    protected boolean isElementVisible(WebDriver driver, String locator) {
+        List<WebElement> elements = getListElement(driver, locator);
+
+        if (elements.isEmpty()) {
+            System.out.println("Element not found in DOM");
+            return false; // Không tồn tại => không visible
+        }
+
+        try {
+            return elements.get(0).isDisplayed();
+        } catch (StaleElementReferenceException e) {
+            System.out.println("Element is stale in DOM");
+            return false; // Không tin cậy => coi như không visible
+        }
+    }
+
+    protected boolean isElementUndisplayed(WebDriver driver, String locator) {
+
+        List<WebElement> elements = getListElement(driver, locator);
+        if (elements.isEmpty()) {
+            System.out.println("Element not found in DOM");
+            return true; // Không có element => undisplayed
+        }
+
+        try {
+            return !elements.get(0).isDisplayed();
+        } catch (StaleElementReferenceException e) {
+            System.out.println("Element is stale in DOM");
+            return true; // coi như undisplayed
+        }
+    }
+
+
+
+
+
     protected String pathImg(String folder, String imgName){
         String projectPath = System.getProperty("user.dir");
         System.out.println(projectPath);
